@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jack Foster - Data Analytics Consultant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #2c3e50;
+            --primary-gray: #34495e;
+            --light-gray: #95a5a6;
+            --lighter-gray: #ecf0f1;
+            --white: #ffffff;
+            --accent: #3498db;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-brand:hover {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 2rem;
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(52, 152, 219, 0.03), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: var(--shadow);
+            border: 5px solid var(--white);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            animation: slideInRight 0.8s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-content .tagline {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            animation: slideInRight 0.8s ease 0.2s both;
+        }
+
+        .hero-content .description {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            animation: slideInRight 0.8s ease 0.4s both;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: slideInRight 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-dark);
+            border: 2px solid var(--lighter-gray);
+        }
+
+        .btn-secondary:hover {
+            background: var(--lighter-gray);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .section-white {
+            background: var(--white);
+        }
+
+        .section-gray {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: translateX(-4px);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .skill-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .skill-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent);
+        }
+
+        .skill-list {
+            list-style: none;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .skill-list li {
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .skill-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--lighter-gray);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border: 4px solid var(--white);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--lighter-gray);
+        }
+
+        .timeline-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content:first-child {
+            margin-left: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content:last-child {
+            margin-right: auto;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-role {
+            font-weight: 600;
+            color: var(--primary-gray);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .achievement-list li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .achievement-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                padding-left: 60px;
+            }
+
+            .timeline-item::before {
+                left: 30px;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Animations on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="nav-brand">Jack Foster</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-image">
+                <img src="https://media.licdn.com/dms/image/v2/C5603AQFmrwI_r4ru4g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1625206031236?e=1759363200&v=beta&t=yH_IC1lVYAe6fcqWp5tKR9jAY49P71RgmWIL4K2nVjo" alt="Jack Foster">
+            </div>
+            <div class="hero-content">
+                <h1>Jack Foster</h1>
+                <p class="tagline">Principal Data Analytics Consultant</p>
+                <p class="description">
+                    Results-driven data analytics consultant with 8 years of experience delivering enterprise cloud data solutions and leading high-performing teams across government and private sectors. Expertise in Snowflake, Microsoft Fabric, and modern data stack implementation, with proven track record in pre-sales engagement, solution architecture, and practice development.
+                </p>
+                <div class="contact-buttons">
+                    <a href="mailto:Jack.MT.Foster@gmail.com" class="btn btn-primary">
+                        <span>📧</span> Email Me
+                    </a>
+                    <a href="https://www.linkedin.com/in/jack-mt-foster/" class="btn btn-secondary" target="_blank">
+                        <span>🔗</span> LinkedIn
+                    </a>
+                    <a href="tel:+61421642301" class="btn btn-secondary">
+                        <span>📱</span> Call Me
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section section-gray">
+        <div class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="skills-grid fade-in">
+                <div class="skill-card">
+                    <h3>
+                        <svg class="skill-icon" viewBox="0 0 24 24">
+                            <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                        Cloud Platforms
+                    </h3>
+                    <ul class="skill-list">
+                        <li>Microsoft Fabric</li>
+                        <li>Azure Data Services</li>
+                        <li>Snowflake</li>
+                        <li>Informatica</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>
+                        <svg class="skill-icon" viewBox="0 0 24 24">
+                            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                        </svg>
+                        Programming & Analytics
+                    </h3>
+                    <ul class="skill-list">
+                        <li>Python</li>
+                        <li>R</li>
+                        <li>SQL</li>
+                        <li>DBT</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>
+                        <svg class="skill-icon" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                        Visualization & AI
+                    </h3>
+                    <ul class="skill-list">
+                        <li>Tableau</li>
+                        <li>Power BI</li>
+                        <li>AI & Machine Learning</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>
+                        <svg class="skill-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Core Competencies
+                    </h3>
+                    <ul class="skill-list">
+                        <li>Data Warehousing</li>
+                        <li>Cloud Migration</li>
+                        <li>Data Strategy & Governance</li>
+                        <li>Agile Methodology</li>
+                        <li>Team Leadership</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section section-white">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024 - Present</div>
+                        <div class="timeline-company">TechClick</div>
+                        <div class="timeline-role">Principal Consultant Data and Analytics</div>
+                        <div class="timeline-description">
+                            Leading end-to-end Microsoft Fabric projects from pre-sales through implementation for clients across retail, finance, banking, agriculture, and trade sectors.
+                        </div>
+                        <ul class="achievement-list">
+                            <li>Architected Microsoft Fabric implementation serving 200+ users, achieving 90% improvement in data processing efficiency</li>
+                            <li>Built automated reporting solution saving AU$120K+ annually</li>
+                            <li>Successfully migrated complex ELT processes from Snowflake/Matillion to Microsoft Fabric</li>
+                        </ul>
+                    </div>
+                    <div></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023 - 2024</div>
+                        <div class="timeline-company">Ministry of Business, Innovation & Employment (MBIE)</div>
+                        <div class="timeline-role">Principal Technology Advisor / Manager Data Analytics</div>
+                        <div class="timeline-description">
+                            Led business acceptance for enterprise cloud-based data analytics products and managed high-performing analytics team through organizational transformation.
+                        </div>
+                        <ul class="achievement-list">
+                            <li>Served as technical advisor for government's first cloud data warehouse migration project</li>
+                            <li>Led PowerBI migration delivering NZ$1M annual cost savings</li>
+                            <li>Reduced cloud spend by 35% through strategic resource allocation</li>
+                            <li>Managed analytics portfolio serving diverse internal clients with 95% on-time delivery</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021 - 2023</div>
+                        <div class="timeline-company">Ministry of Health</div>
+                        <div class="timeline-role">Principal Data Analyst / Team Technical Lead</div>
+                        <div class="timeline-description">
+                            Led cross-functional team of 12 data analysts delivering NZ's COVID-19 vaccination analytics program with 99.9% accuracy under intense public scrutiny.
+                        </div>
+                        <ul class="achievement-list">
+                            <li>Delivered Tier 1 statistical analysis informing NZ$2B+ vaccination program policy</li>
+                            <li>Reduced report generation time by 70% through reusable Snowflake views</li>
+                            <li>Built proprietary R package eliminating manual processes and reducing errors by 95%</li>
+                        </ul>
+                    </div>
+                    <div></div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2018 - 2021</div>
+                        <div class="timeline-company">Callaghan Innovation</div>
+                        <div class="timeline-role">Senior Inventory Manager & Data Analyst</div>
+                        <div class="timeline-description">
+                            Used Power BI, Microsoft SQL Server, and R to report on chemical inventory of large-scale science campus comprising over 40 science labs.
+                        </div>
+                        <ul class="achievement-list">
+                            <li>Led insights that resulted in safe disposal of over 5,000 hazardous goods</li>
+                            <li>Managed inventory analytics for 40+ science laboratories</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section section-gray">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="skills-grid fade-in">
+                <div class="skill-card">
+                    <h3>Postgraduate Diploma in Science</h3>
+                    <p style="color: var(--accent); font-weight: 600;">Genetics</p>
+                    <p style="color: var(--text-light);">Otago University, NZ</p>
+                    <p style="color: var(--text-light);">2015</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Bachelor of Science</h3>
+                    <p style="color: var(--accent); font-weight: 600;">Genetics</p>
+                    <p style="color: var(--text-light);">Otago University, NZ</p>
+                    <p style="color: var(--text-light);">2012 - 2014</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="mailto:Jack.MT.Foster@gmail.com" class="social-link">Email</a>
+                <a href="https://www.linkedin.com/in/jack-mt-foster/" class="social-link" target="_blank">LinkedIn</a>
+                <a href="tel:+61421642301" class="social-link">Phone</a>
+            </div>
+            <p>&copy; 2025 Jack Foster. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Dynamic navigation background on scroll
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Highlight active nav link
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.color = 'var(--accent)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
